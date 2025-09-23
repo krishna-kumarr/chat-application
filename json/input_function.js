@@ -9,14 +9,14 @@ export default function (ip_array) {
                 switch (ip.type) {
                     case "text":
                         return (
-                            <Grid size={ip.size} key={index} >
+                            <Grid sx={ip.parent_style} key={index} >
                                 <TextFieldComponent {...ip} ind={index} />
                             </Grid >
                         );
 
                     case "password":
                         return (
-                            <Grid size={ip.size} key={index} >
+                            <Grid sx={ip.sx} key={index} >
                                 <Password {...ip} ind={index} />
                             </Grid>
                         )

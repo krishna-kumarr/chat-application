@@ -27,6 +27,7 @@ export async function connectToDatabase() {
             })
             .catch((err) => {
                 console.error('MongoDB connection error:', err)
+                cached.promise = null;
                 throw err
             })
     }

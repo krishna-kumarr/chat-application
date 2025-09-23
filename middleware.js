@@ -1,4 +1,3 @@
-// middleware.js
 import { NextResponse } from "next/server";
 import { decryptData } from "./utils/crypto";
 
@@ -9,8 +8,11 @@ function extractEncAndTrailing(pathname, sep = "enc") {
 }
 
 export async function middleware(req) {
-  const url = req.nextUrl;
+  if (process.env.NEXT_PUBLIC_APP_ENV !== 'production') {
+    return NextResponse.next();
+  }
 
+  const url = req.nextUrl;
   if (!url.pathname.startsWith("/secure") && !url.pathname.startsWith("/api")) {
     return NextResponse.next();
   }
@@ -28,10 +30,9 @@ export async function middleware(req) {
 
   // Decrypt
   const decrypted = await decryptData(parsed.encrypted);
-
   if (decrypted?.url) {
     if (new Date(decrypted.expires_in) < new Date()) {
-      return NextResponse.json({ error: "Endpoint expired" }, { status: 403 });
+      return NextResponse.json({ error: "Endpoint expired" }, { status: 200 });
     }
 
     const newUrl = req.nextUrl.clone();

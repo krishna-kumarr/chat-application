@@ -1,23 +1,55 @@
-import { Box, Grid } from "@mui/material";
+import { image } from "@/public/image";
+import { Box, Card, Container, Grid, Typography } from "@mui/material";
+import { usePathname } from "next/navigation";
 
 export function AuthLayout({ children }) {
+    const pathname = usePathname();
+    const dynamic_image = {
+        '/': image.signin_image,
+        '/signup': image.signup_image
+    };
+
     return (
-        <Grid container sx={{
-            height: '100vh', justifyContent: 'start',
-            backgroundImage: {
-                md: 'url(https://assets.mongodb-cdn.com/mms/static/images/auth/login_desktop.svg)'
-            },
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover'
-        }} >
-            <Grid direction="column" sx={{ md: 4, padding: 2, height: '100%', backgroundColor: '#ffffff' }}>
-                <Box sx={{ height: '30%' }}>
-                    <img src="https://admin.adraproductstudio.com/static/media/company_logo.acc47529927dd2bb1b46.png" alt="Logo" width={80} />
+        <Box component="section">
+            <Grid sx={{ height: '100vh', p: 2 }}>
+                <Box sx={{
+                    height: '51%',
+                    width: '100%',
+                    background: `linear-gradient(310deg, rgba(20, 23, 39, 0.6), rgba(58, 65, 111, 0.6)) center center / cover no-repeat, url(${dynamic_image[pathname]}) transparent`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    borderRadius: 2
+                }}>
+                    <Container>
+                        <Typography variant="body1" sx={{ fontWeight: 600, p: 2, color: "white" }}> Adra Product Studio </Typography>
+                    </Container>
+
+                    <Box sx={{ textAlign: 'center' }}>
+                        <Typography variant="h3" sx={{ fontWeight: 800, p: 5, pb: 1, color: "white" }}>
+                            Welcome!
+                        </Typography>
+
+                        <Typography variant="body1" sx={{ px: 5, color: "white" }}>
+                            Use these awesome forms to login or create new account in your project for free.
+                        </Typography>
+                    </Box>
                 </Box>
-                <Box>
+
+                <Card sx={{
+                    position: 'absolute',
+                    top: '61%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    height: '50%',
+                    width: { xs: "80%", md: "55%", lg: "40%", xl: "24%" },
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease-in-out',
+                    boxShadow: '2px 4px 20px rgba(0, 0, 0, 0.1)',
+                }} >
                     {children}
-                </Box>
-            </Grid>
-        </ Grid>
+                </Card>
+            </Grid >
+        </Box >
     );
 }

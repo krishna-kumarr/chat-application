@@ -19,13 +19,12 @@ export default function Providers({ children }) {
             setBasePath(encrypted);
         })();
     }, []);
-
     if (!basePath) return null;
 
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <SessionProvider basePath={`/api/enc__${basePath}__enc`}>
+            <SessionProvider basePath={process.env.NEXT_PUBLIC_APP_ENV === 'production' ? `/api/enc__${basePath}__enc` : '/api/auth'}>
                 {children}
             </SessionProvider>
         </ThemeProvider>

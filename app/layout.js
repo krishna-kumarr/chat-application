@@ -1,9 +1,6 @@
 import Providers from "@/app/providers";
+import "@/stylesheet/css/index.css"
 
-export const metadata = {
-  title: "My App",
-  description: "App with encrypted NextAuth paths",
-};
 
 export default function RootLayout({ children }) {
   return (

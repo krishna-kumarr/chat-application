@@ -11,12 +11,16 @@ export default function (props) {
     const handleMouseUpPassword = (event) => event.preventDefault();
 
     return (
-        <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <FormControl required sx={{ ...props.child_style }} variant="outlined" size="small">
+            {props?.floating_label && <InputLabel htmlFor="outlined-adornment-password">
+                Password
+            </InputLabel>}
+
             <OutlinedInput
                 id="outlined-adornment-password"
                 type={showPassword ? "text" : "password"}
-                value={props?.value || ''}
+                color={props?.color || "secondary"}
+                value={props?.value || ""}
                 onChange={props.onChange || null}
                 endAdornment={
                     <InputAdornment position="end">
@@ -31,7 +35,9 @@ export default function (props) {
                         </IconButton>
                     </InputAdornment>
                 }
-                label="Password"
+                label={props?.floating_label ? "Password" : ""}
+                placeholder={props?.floating_label ? "" : props?.title || "sample label"}
+                sx={props.child_style}
             />
         </FormControl>
     );
